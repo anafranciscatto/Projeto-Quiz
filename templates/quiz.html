@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz App</title>
+  <link rel="stylesheet" href="/static/css/global.css">
+  <link rel="stylesheet" href="/static/css/quiz.css">
+</head>
+<body>
+  <div class="quiz-container">
+    <header class="quiz-header">
+      <img src="/static/img/Logo-Quiz.png" alt="Quiz Icon" class="quiz-logo">
+    </header>
+
+    <main class="quiz-content">
+      <div class="question-container">
+        <div class="question-icon"><img src="/static/img/Icone-inte.png" alt="Icone lampada"></div>
+        <p class="question-text" id="question-text">Carregando...</p>
+      </div>
+      <div class="answers-container" id="answers-container">
+        <!-- Respostas serão carregadas aqui dinamicamente -->
+      </div>
+    </main>
+  </div>
+  <!-- Modal -->
+<div id="result-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">&times;</span>
+    <h2>Resultado do Quiz</h2>
+    <p id="score-message"></p>
+  </div>
+</div>
+
+  <script>
+   let currentQuestionIndex = 0;
+let score = 0;
+let questions = [];
+
+// Função para carregar as perguntas do servidor
+async function loadQuestions() {
+  const response = await fetch('/questions');
+  questions = await response.json();
+  showQuestion(currentQuestionIndex);
+}
+
+// Função para exibir a pergunta e alternativas
+function showQuestion(index) {
+  const question = questions[index];
+  document.getElementById("question-text").textContent = question.question;
+  const answersContainer = document.getElementById("answers-container");
+  answersContainer.innerHTML = '';
+  
+  question.answers.forEach((answer, idx) => {
+    const answerButton = document.createElement('div');
+    answerButton.classList.add('answer-button');
+    answerButton.innerHTML = answer;
+    answerButton.onclick = () => handleAnswerSelection(answerButton, answer);
+    answersContainer.appendChild(answerButton);
+  });
+}
+
+// Função para tratar a seleção de uma resposta
+function handleAnswerSelection(button, answer) {
+  const correctAnswer = questions[currentQuestionIndex].correct_answer;
+  
+  // Adiciona a classe 'selected' ao botão
+  button.classList.add('selected');
+  
+  // Se a resposta for incorreta, adiciona a classe 'incorrect'
+  if (answer !== correctAnswer) {
+    button.classList.add('incorrect');
+  } else {
+    score++;
+  }
+
+  // Desabilita todos os botões de resposta após uma seleção
+  const allButtons = document.querySelectorAll('.answer-button');
+  allButtons.forEach(btn => btn.onclick = null);
+
+  // Avança para a próxima pergunta
+  setTimeout(() => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      showQuestion(currentQuestionIndex);
+    } else {
+      alert(`Quiz terminado! Você acertou ${score} de ${questions.length}.`);
+    }
+  }, 1000); // Tempo de espera de 1 segundo antes de avançar
+}
+
+
+
+// Carregar as perguntas ao iniciar a página
+window.onload = loadQuestions;
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* cores */
+  :root {
+    --background-color: #000;
+    --card-background-color: #111;
+    --text-color: #fff;
+    --title-color: #ffb800;
+    --button-color: #6c1eff;
+    --button-hover-color: #8e2cff;
+  }
+  
