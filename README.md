@@ -20,12 +20,12 @@ Este projeto foi desenvolvido durante as férias com o objetivo de criar um **ap
 
 O protótipo foi criado no **Figma** para melhor visualização do layout e fluxo do aplicativo.
 
-[![Protótipo do Projeto](https://www.figma.com/community/file/1460835](https://www.figma.com/community/file/1460835782816545775/projeto-quiz)782816545775/projeto-quiz)
+[![Protótipo do Projeto](https://www.figma.com/community/file/1460835782816545775/projeto-quiz)](https://www.figma.com/community/file/1460835782816545775/projeto-quiz)
 
 ## Acesse o Quiz App Online
 
 Venha testar seus conhecimentos! Acesse o Quiz App online em:  
-[https://link-do-seu-site.com](https://link-do-seu-site.com)
+[https://projeto-quiz.onrender.com](https://projeto-quiz.onrender.com)
 
 ## Como Rodar o Projeto Localmente
 
